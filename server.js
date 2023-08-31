@@ -2,11 +2,15 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import session from "express-session";
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+const mongodbUri = process.env.MONGODB_URI;
+
 
 // Setup express-session middleware
 app.use(
@@ -17,8 +21,7 @@ app.use(
   })
 );
 
-mongoose
-  .connect("mongodb+srv://manojsingh889912:8ClaXsadAPseAeS8@cluster0.6notwe3.mongodb.net/?retryWrites=true&w=majority", {
+mongoose.connect(mongodbUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
